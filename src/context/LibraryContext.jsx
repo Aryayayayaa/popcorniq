@@ -37,6 +37,27 @@ function libraryReducer(state, action) {
         ),
       };
 
+    case "ADD_TO_WATCHED": {
+      const alreadyExists = state.watched.some(
+        (movie) => movie.id === action.payload.id,
+      );
+
+      if (alreadyExists) {
+        return state;
+      }
+
+      return {
+        ...state,
+        watched: [...state.watched, action.payload],
+      };
+    }
+
+    case "REMOVE_FROM_WATCHED":
+      return {
+        ...state,
+        watched: state.watched.filter((movie) => movie.id !== action.payload),
+      };
+
     default:
       return state;
   }
@@ -69,12 +90,28 @@ function LibraryProvider({ children }) {
     });
   }
 
+  function addToWatched(movie) {
+    dispatch({
+      type: "ADD_TO_WATCHED",
+      payload: movie,
+    });
+  }
+
+  function removeFromWatched(movieId) {
+    dispatch({
+      type: "REMOVE_FROM_WATCHED",
+      payload: movieId,
+    });
+  }
+
   return (
     <LibraryContext.Provider
       value={{
         state,
         addToWatchlist,
         removeFromWatchlist,
+        addToWatched,
+        removeFromWatched,
       }}
     >
       {children}

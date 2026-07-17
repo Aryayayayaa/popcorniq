@@ -5,11 +5,11 @@ import { ArrowLeft, Calendar, Clock3, Home, Star } from "lucide-react";
 
 import useMovieCredits from "../hooks/useMovieCredits";
 import useMovieDetails from "../hooks/useMovieDetails";
+import { useLibrary } from "../context/LibraryContext";
 
 import { ROUTES } from "../constants/routes";
 
 import { getBackdropUrl, getPosterUrl, getProfileUrl } from "../utils/image";
-
 import { formatReleaseDate, formatRuntime } from "../utils/movie";
 
 function MovieDetails() {
@@ -36,6 +36,10 @@ function MovieDetails() {
   }, [credits]);
 
   const { movie, loading, error, retry } = useMovieDetails(id);
+  const { state, addToWatchlist, removeFromWatchlist } = useLibrary();
+  const isInWatchlist = state.watchlist.some(
+    (savedMovie) => savedMovie.id === movie?.id,
+  );
 
   if (loading) {
     return <h2 className="text-center text-2xl">Loading movie...</h2>;
@@ -161,6 +165,32 @@ function MovieDetails() {
                 {genre.name}
               </span>
             ))}
+          </div>
+
+          <div className="mt-6">
+            <button
+              onClick={() => {
+                if (isInWatchlist) {
+                  removeFromWatchlist(movie.id);
+                } else {
+                  addToWatchlist(movie);
+                }
+              }}
+              className={`
+    rounded-lg
+    px-5
+    py-3
+    font-medium
+    transition-colors
+    ${
+      isInWatchlist
+        ? "bg-red-600 text-white hover:bg-red-700"
+        : "bg-blue-600 text-white hover:bg-blue-700"
+    }
+  `}
+            >
+              {isInWatchlist ? "Remove from Watchlist" : "+ Add to Watchlist"}
+            </button>
           </div>
 
           <h2 className="mt-8 text-2xl font-semibold">Overview</h2>

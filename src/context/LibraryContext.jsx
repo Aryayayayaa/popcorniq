@@ -13,6 +13,29 @@ const initialState = {
 
 function libraryReducer(state, action) {
   switch (action.type) {
+    case "ADD_TO_WATCHLIST": {
+      const alreadyExists = state.watchlist.some(
+        (movie) => movie.id === action.payload.id,
+      );
+
+      if (alreadyExists) {
+        return state;
+      }
+
+      return {
+        ...state,
+        watchlist: [...state.watchlist, action.payload],
+      };
+    }
+
+    case "REMOVE_FROM_WATCHLIST":
+      return {
+        ...state,
+        watchlist: state.watchlist.filter(
+          (movie) => movie.id !== action.payload,
+        ),
+      };
+
     default:
       return state;
   }
@@ -21,11 +44,27 @@ function libraryReducer(state, action) {
 /* Provider component that will wrap the application. */
 function LibraryProvider({ children }) {
   const [state, dispatch] = useReducer(libraryReducer, initialState);
+
+  function addToWatchlist(movie) {
+    dispatch({
+      type: "ADD_TO_WATCHLIST",
+      payload: movie,
+    });
+  }
+
+  function removeFromWatchlist(movieId) {
+    dispatch({
+      type: "REMOVE_FROM_WATCHLIST",
+      payload: movieId,
+    });
+  }
+
   return (
     <LibraryContext.Provider
       value={{
         state,
-        dispatch,
+        addToWatchlist,
+        removeFromWatchlist,
       }}
     >
       {children}

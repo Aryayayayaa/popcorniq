@@ -1,7 +1,12 @@
 import { Link, Outlet } from "react-router-dom";
+
 import { ROUTES } from "../constants/routes";
+import { useLibrary } from "../context/LibraryContext";
 
 function Layout() {
+  const { state } = useLibrary();
+  const watchlistCount = state.watchlist.length;
+
   return (
     <div className="min-h-screen bg-slate-100">
       <header className="bg-slate-900 text-white shadow-md">
@@ -20,10 +25,10 @@ function Layout() {
             </Link>
 
             <Link
-              to="/my-list"
+              to={ROUTES.MY_LIST}
               className="hover:text-yellow-400 transition-colors"
             >
-              My List
+              My List ({watchlistCount})
             </Link>
           </nav>
         </div>

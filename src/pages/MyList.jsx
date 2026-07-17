@@ -5,22 +5,50 @@ import { useLibrary } from "../context/LibraryContext";
 function MyList() {
   const { state } = useLibrary();
 
-  const { watchlist } = state;
+  const { watchlist, watched } = state;
 
   return (
     <section className="mx-auto max-w-7xl">
-      <h1 className="mb-8 text-center text-4xl font-bold">My Watchlist</h1>
+      <h1 className="mb-10 text-center text-4xl font-bold">My Library</h1>
 
-      {watchlist.length === 0 ? (
+      {watchlist.length === 0 && watched.length === 0 ? (
         <div className="text-center">
-          <p className="text-lg text-slate-600">Your watchlist is empty.</p>
+          <p className="text-lg text-slate-600">Your library is empty.</p>
 
           <p className="mt-2 text-slate-500">
-            Add movies from the Movie Details page.
+            Start exploring movies and add them to your watchlist.
           </p>
         </div>
       ) : (
-        <MovieGrid movies={watchlist} />
+        <div className="space-y-12">
+          <section>
+            <h2 className="mb-6 text-2xl font-semibold">
+              🎬 Watchlist ({watchlist.length})
+            </h2>
+
+            {watchlist.length === 0 ? (
+              <p className="text-slate-500">
+                You haven't added any movies to your watchlist yet.
+              </p>
+            ) : (
+              <MovieGrid movies={watchlist} />
+            )}
+          </section>
+
+          <section>
+            <h2 className="mb-6 text-2xl font-semibold">
+              ✅ Watched ({watched.length})
+            </h2>
+
+            {watched.length === 0 ? (
+              <p className="text-slate-500">
+                You haven't marked any movies as watched yet.
+              </p>
+            ) : (
+              <MovieGrid movies={watched} />
+            )}
+          </section>
+        </div>
       )}
     </section>
   );

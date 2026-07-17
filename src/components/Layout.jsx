@@ -5,7 +5,7 @@ import { useLibrary } from "../context/LibraryContext";
 
 function Layout() {
   const { state } = useLibrary();
-  const watchlistCount = state.watchlist.length;
+  const totalLibraryCount = state.watchlist.length + state.watched.length;
 
   return (
     <div className="min-h-screen bg-slate-100">
@@ -28,7 +28,9 @@ function Layout() {
               to={ROUTES.MY_LIST}
               className="hover:text-yellow-400 transition-colors"
             >
-              My List ({watchlistCount})
+              {totalLibraryCount > 0
+                ? `My List (${totalLibraryCount})`
+                : "My List"}
             </Link>
           </nav>
         </div>

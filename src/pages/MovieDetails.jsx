@@ -36,8 +36,17 @@ function MovieDetails() {
   }, [credits]);
 
   const { movie, loading, error, retry } = useMovieDetails(id);
-  const { state, addToWatchlist, removeFromWatchlist } = useLibrary();
+  const {
+    state,
+    addToWatchlist,
+    removeFromWatchlist,
+    addToWatched,
+    removeFromWatched,
+  } = useLibrary();
   const isInWatchlist = state.watchlist.some(
+    (savedMovie) => savedMovie.id === movie?.id,
+  );
+  const isWatched = state.watched.some(
     (savedMovie) => savedMovie.id === movie?.id,
   );
 
@@ -167,7 +176,7 @@ function MovieDetails() {
             ))}
           </div>
 
-          <div className="mt-6">
+          <div className="mt-6 flex flex-wrap gap-4">
             <button
               onClick={() => {
                 if (isInWatchlist) {
@@ -177,19 +186,47 @@ function MovieDetails() {
                 }
               }}
               className={`
-    rounded-lg
-    px-5
-    py-3
-    font-medium
-    transition-colors
-    ${
-      isInWatchlist
-        ? "bg-red-600 text-white hover:bg-red-700"
-        : "bg-blue-600 text-white hover:bg-blue-700"
-    }
-  `}
+                rounded-lg
+                px-5
+                py-3
+                font-medium
+                transition-colors
+                ${
+                  isInWatchlist
+                    ? "bg-red-600 text-white hover:bg-red-700"
+                    : "bg-blue-600 text-white hover:bg-blue-700"
+                }
+              `}
             >
               {isInWatchlist ? "Remove from Watchlist" : "+ Add to Watchlist"}
+            </button>
+
+            <button
+              onClick={() => {
+                if (isWatched) {
+                  removeFromWatched(movie.id);
+                } else {
+                  addToWatched(movie);
+
+                  if (isInWatchlist) {
+                    removeFromWatchlist(movie.id);
+                  }
+                }
+              }}
+              className={`
+                rounded-lg
+                px-5
+                py-3
+                font-medium
+                transition-colors
+                ${
+                  isWatched
+                    ? "bg-amber-600 text-white hover:bg-amber-700"
+                    : "bg-emerald-600 text-white hover:bg-emerald-700"
+                }
+              `}
+            >
+              {isWatched ? "Remove from Watched" : "✓ Mark as Watched"}
             </button>
           </div>
 

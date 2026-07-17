@@ -1,4 +1,5 @@
 import { Link, Outlet } from "react-router-dom";
+import { ROUTES } from "../constants/routes";
 
 function Layout() {
   return (
@@ -6,10 +7,11 @@ function Layout() {
       <header className="bg-slate-900 text-white shadow-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           <Link
-            to="/"
+            to={ROUTES.HOME}
             className="text-3xl font-bold tracking-wide hover:text-yellow-400 transition-colors"
           >
-            🍿 PopcornIQ
+            <span>🍿</span>
+            <span>PopcornIQ</span>
           </Link>
 
           <nav className="flex gap-8 text-lg font-medium">

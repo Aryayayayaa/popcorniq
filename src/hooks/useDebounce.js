@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 
-function useDebounce(value, delay = 500) {
+import { DEBOUNCE_DELAY } from "../constants/movie";
+
+function useDebounce(value, delay = DEBOUNCE_DELAY) {
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {

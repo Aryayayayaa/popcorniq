@@ -1,13 +1,10 @@
-import { Link } from "react-router-dom";
-
-import { FALLBACK_POSTER, IMAGE_BASE_URL } from "../utils/constants";
-
-import { formatDate } from "../utils/formatDate";
+import { Link, useLocation } from "react-router-dom";
+import { getPosterUrl } from "../utils/image";
+import { formatReleaseDate } from "../utils/movie";
 
 function MovieCard({ movie }) {
-  const poster = movie.poster_path
-    ? `${IMAGE_BASE_URL}${movie.poster_path}`
-    : FALLBACK_POSTER;
+  const location = useLocation();
+  const poster = getPosterUrl(movie.poster_path);
 
   return (
     <article
@@ -21,7 +18,7 @@ function MovieCard({ movie }) {
         hover:shadow-xl
       "
     >
-      <Link to={`/movie/${movie.id}`}>
+      <Link to={`/movie/${movie.id}`} state={{ from: location }}>
         <img
           src={poster}
           alt={movie.title}
@@ -30,7 +27,7 @@ function MovieCard({ movie }) {
       </Link>
 
       <div className="space-y-2 p-4">
-        <Link to={`/movie/${movie.id}`}>
+        <Link to={`/movie/${movie.id}`} state={{ from: location }}>
           <h2 className="line-clamp-2 text-lg font-semibold hover:text-blue-600">
             {movie.title}
           </h2>
@@ -41,7 +38,7 @@ function MovieCard({ movie }) {
         </p>
 
         <p className="text-sm text-slate-600">
-          📅 {formatDate(movie.release_date)}
+          📅 {formatReleaseDate(movie.release_date)}
         </p>
       </div>
     </article>

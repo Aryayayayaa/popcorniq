@@ -5,9 +5,9 @@
  * Components and hooks should never call fetch() directly.
  */
 
-const BASE_URL = "https://api.themoviedb.org/3";
-const REQUEST_TIMEOUT = 8000;
+import { REQUEST_TIMEOUT } from "../constants/api";
 
+const BASE_URL = "https://api.themoviedb.org/3";
 const ACCESS_TOKEN = import.meta.env.VITE_TMDB_ACCESS_TOKEN;
 
 /**
@@ -106,4 +106,24 @@ export async function searchMovies(query, page = 1) {
   });
 
   return fetchFromTMDB(`/search/movie?${params}`);
+}
+
+/**
+ * Fetches complete details for a movie.
+ *
+ * @param {number|string} movieId
+ * @returns {Promise<Object>}
+ */
+export async function getMovieDetails(movieId) {
+  return fetchFromTMDB(`/movie/${movieId}`);
+}
+
+/**
+ * Fetches cast and crew information for a movie.
+ *
+ * @param {number|string} movieId
+ * @returns {Promise<Object>}
+ */
+export async function getMovieCredits(movieId) {
+  return fetchFromTMDB(`/movie/${movieId}/credits`);
 }

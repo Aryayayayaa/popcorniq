@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useReducer } from "react";
 
 /**
  * Global context for the user's movie library.
@@ -6,11 +6,30 @@ import { createContext, useContext } from "react";
  * watched movies, personal ratings, and related actions.
  */
 const LibraryContext = createContext(null);
+const initialState = {
+  watchlist: [],
+  watched: [],
+};
+
+function libraryReducer(state, action) {
+  switch (action.type) {
+    default:
+      return state;
+  }
+}
 
 /* Provider component that will wrap the application. */
 function LibraryProvider({ children }) {
+  const [state, dispatch] = useReducer(libraryReducer, initialState);
   return (
-    <LibraryContext.Provider value={{}}>{children}</LibraryContext.Provider>
+    <LibraryContext.Provider
+      value={{
+        state,
+        dispatch,
+      }}
+    >
+      {children}
+    </LibraryContext.Provider>
   );
 }
 

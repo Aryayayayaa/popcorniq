@@ -1,4 +1,5 @@
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useEffect, useReducer } from "react";
+import useLocalStorage from "../hooks/useLocalStorage";
 
 /**
  * Global context for the user's movie library.
@@ -43,7 +44,16 @@ function libraryReducer(state, action) {
 
 /* Provider component that will wrap the application. */
 function LibraryProvider({ children }) {
-  const [state, dispatch] = useReducer(libraryReducer, initialState);
+  const [savedState, setSavedState] = useLocalStorage(
+    "movie-library",
+    initialState,
+  );
+
+  const [state, dispatch] = useReducer(libraryReducer, savedState);
+
+  useEffect(() => {
+    setSavedState(state);
+  }, [state, setSavedState]);
 
   function addToWatchlist(movie) {
     dispatch({

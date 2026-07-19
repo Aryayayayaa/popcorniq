@@ -6,6 +6,7 @@ import { ArrowLeft, Calendar, Clock3, Home, Star } from "lucide-react";
 import useMovieCredits from "../hooks/useMovieCredits";
 import useMovieDetails from "../hooks/useMovieDetails";
 import { useLibrary } from "../context/LibraryContext";
+import RatingStars from "../components/RatingStars";
 
 import { ROUTES } from "../constants/routes";
 
@@ -42,11 +43,17 @@ function MovieDetails() {
     removeFromWatchlist,
     addToWatched,
     removeFromWatched,
+    setUserRating,
   } = useLibrary();
+
   const isInWatchlist = state.watchlist.some(
     (savedMovie) => savedMovie.id === movie?.id,
   );
   const isWatched = state.watched.some(
+    (savedMovie) => savedMovie.id === movie?.id,
+  );
+
+  const watchedMovie = state.watched.find(
     (savedMovie) => savedMovie.id === movie?.id,
   );
 
@@ -68,6 +75,8 @@ function MovieDetails() {
       </div>
     );
   }
+
+  const userRating = watchedMovie?.userRating ?? 0;
 
   return (
     <section className="mx-auto max-w-6xl">
@@ -229,6 +238,21 @@ function MovieDetails() {
               {isWatched ? "Remove from Watched" : "✓ Mark as Watched"}
             </button>
           </div>
+
+          {isWatched && (
+            <div className="mt-6">
+              <h3 className="mb-2 text-lg font-semibold">Your Rating</h3>
+
+              <RatingStars
+                rating={userRating}
+                onChange={(rating) => setUserRating(movie.id, rating)}
+              />
+
+              <p className="mt-2 text-sm text-gray-500">
+                {userRating} / 5 Stars
+              </p>
+            </div>
+          )}
 
           <h2 className="mt-8 text-2xl font-semibold">Overview</h2>
 

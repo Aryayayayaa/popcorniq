@@ -48,7 +48,13 @@ function libraryReducer(state, action) {
 
       return {
         ...state,
-        watched: [...state.watched, action.payload],
+        watched: [
+          ...state.watched,
+          {
+            ...action.payload,
+            userRating: 0,
+          },
+        ],
       };
     }
 
@@ -56,6 +62,19 @@ function libraryReducer(state, action) {
       return {
         ...state,
         watched: state.watched.filter((movie) => movie.id !== action.payload),
+      };
+
+    case "SET_USER_RATING":
+      return {
+        ...state,
+        watched: state.watched.map((movie) =>
+          movie.id === action.payload.id
+            ? {
+                ...movie,
+                userRating: action.payload.rating,
+              }
+            : movie,
+        ),
       };
 
     default:
@@ -104,6 +123,16 @@ function LibraryProvider({ children }) {
     });
   }
 
+  function setUserRating(id, rating) {
+    dispatch({
+      type: "SET_USER_RATING",
+      payload: {
+        id,
+        rating,
+      },
+    });
+  }
+
   return (
     <LibraryContext.Provider
       value={{
@@ -112,6 +141,7 @@ function LibraryProvider({ children }) {
         removeFromWatchlist,
         addToWatched,
         removeFromWatched,
+        setUserRating,
       }}
     >
       {children}

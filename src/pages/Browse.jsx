@@ -22,6 +22,7 @@ function Browse() {
   const searchQuery = searchParams.get("query") ?? "";
   const page = Number(searchParams.get("page") ?? "1");
   const sortBy = searchParams.get("sort") ?? DEFAULT_SORT;
+  const sortOrder = searchParams.get("order") ?? "desc";
 
   const debouncedQuery = useDebounce(searchQuery);
 
@@ -37,22 +38,69 @@ function Browse() {
   const sortedMovies = useMemo(() => {
     const moviesCopy = [...movies];
 
+    const compareFunctions = {
+      popularity: (a, b) => a.popularity - b.popularity,
+
+      rating: (a, b) => a.vote_average - b.vote_average,
+
+      "release-date": (a, b) =>
+        new Date(a.release_date) - new Date(b.release_date),
+
+      title: (a, b) => a.title.localeCompare(b.title),
+    };
+
+    const compare = compareFunctions[sortBy] ?? compareFunctions.popularity;
+
+    moviesCopy.sort(compare);
+
+    if (sortOrder === "desc") {
+      moviesCopy.reverse();
+    }
+
+    return moviesCopy;
+  }, [movies, sortBy, sortOrder]);
+
+  function updateSearchParams(updates) {
+    const params = new URLSearchParams(searchParams);
+
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value === "" || value === null || value === undefined) {
+        params.delete(key);
+      } else {
+        params.set(key, String(value));
+      }
+    });
+
+    setSearchParams(params);
+  }
+
+  const orderOptions = useMemo(() => {
     switch (sortBy) {
+      case "title":
+        return {
+          asc: "A → Z",
+          desc: "Z → A",
+        };
+
       case "rating":
-        return moviesCopy.sort((a, b) => b.vote_average - a.vote_average);
+        return {
+          asc: "Lowest Rated",
+          desc: "Highest Rated",
+        };
 
       case "release-date":
-        return moviesCopy.sort(
-          (a, b) => new Date(b.release_date) - new Date(a.release_date),
-        );
-
-      case "title":
-        return moviesCopy.sort((a, b) => a.title.localeCompare(b.title));
+        return {
+          asc: "Oldest First",
+          desc: "Newest First",
+        };
 
       default:
-        return moviesCopy.sort((a, b) => b.popularity - a.popularity);
+        return {
+          asc: "Least Popular",
+          desc: "Most Popular",
+        };
     }
-  }, [movies, sortBy]);
+  }, [sortBy]);
 
   return (
     <>
@@ -95,29 +143,31 @@ function Browse() {
           onChange={(event) => {
             const value = event.target.value;
 
-            const params = new URLSearchParams(searchParams);
-
-            if (value.trim()) {
-              params.set("query", value);
-            } else {
-              params.delete("query");
-            }
-
-            params.set("page", "1");
-
-            params.set("sort", sortBy);
-
-            setSearchParams(params);
+            updateSearchParams({
+              query: value.trim() ? value : "",
+              page: 1,
+              sort: sortBy,
+              order: sortOrder,
+            });
           }}
         />
 
         <SortControl
           value={sortBy}
           onChange={(event) => {
-            const params = new URLSearchParams(searchParams);
-            params.set("sort", event.target.value);
-            setSearchParams(params);
+            updateSearchParams({
+              sort: event.target.value,
+              order: sortOrder,
+            });
           }}
+          order={sortOrder}
+          onOrderChange={(event) => {
+            updateSearchParams({
+              sort: sortBy,
+              order: event.target.value,
+            });
+          }}
+          orderOptions={orderOptions}
         />
       </div>
       {loading && (
@@ -173,14 +223,16 @@ function Browse() {
         currentPage={currentPage}
         totalPages={totalPages}
         onPrevious={() => {
-          const params = new URLSearchParams(searchParams);
-          params.set("page", String(page - 1));
-          setSearchParams(params);
+          updateSearchParams({
+            page: page - 1,
+            order: sortOrder,
+          });
         }}
         onNext={() => {
-          const params = new URLSearchParams(searchParams);
-          params.set("page", String(page + 1));
-          setSearchParams(params);
+          updateSearchParams({
+            page: page + 1,
+            order: sortOrder,
+          });
         }}
       />
     </>

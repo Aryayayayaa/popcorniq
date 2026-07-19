@@ -5,12 +5,19 @@ import { ArrowLeft, Calendar, Clock3, Home, Star } from "lucide-react";
 
 import useMovieCredits from "../hooks/useMovieCredits";
 import useMovieDetails from "../hooks/useMovieDetails";
+import useMovieProviders from "../hooks/useMovieProviders";
+import MovieDetailsSkeleton from "../components/MovieDetailsSkeleton";
 import { useLibrary } from "../context/LibraryContext";
 import RatingStars from "../components/RatingStars";
 
 import { ROUTES } from "../constants/routes";
 
-import { getBackdropUrl, getPosterUrl, getProfileUrl } from "../utils/image";
+import {
+  getBackdropUrl,
+  getPosterUrl,
+  getProfileUrl,
+  getProviderLogoUrl,
+} from "../utils/image";
 import { formatReleaseDate, formatRuntime } from "../utils/movie";
 
 function MovieDetails() {
@@ -21,6 +28,7 @@ function MovieDetails() {
 
   const previousLocation = location.state?.from;
   const { credits } = useMovieCredits(id);
+  const { providers } = useMovieProviders(id);
 
   const director = useMemo(() => {
     return credits?.crew.find((member) => member.job === "Director");
@@ -46,19 +54,38 @@ function MovieDetails() {
     setUserRating,
   } = useLibrary();
 
-  const isInWatchlist = state.watchlist.some(
-    (savedMovie) => savedMovie.id === movie?.id,
-  );
-  const isWatched = state.watched.some(
-    (savedMovie) => savedMovie.id === movie?.id,
-  );
-
   const watchedMovie = state.watched.find(
     (savedMovie) => savedMovie.id === movie?.id,
   );
+  const isWatched = Boolean(watchedMovie);
+  const userRating = watchedMovie?.userRating ?? 0;
+
+  const isInWatchlist = state.watchlist.some(
+    (savedMovie) => savedMovie.id === movie?.id,
+  );
+
+  function handleWatchlistClick() {
+    if (isInWatchlist) {
+      removeFromWatchlist(movie.id);
+    } else {
+      addToWatchlist(movie);
+    }
+  }
+
+  function handleWatchedClick() {
+    if (isWatched) {
+      removeFromWatched(movie.id);
+    } else {
+      addToWatched(movie);
+
+      if (isInWatchlist) {
+        removeFromWatchlist(movie.id);
+      }
+    }
+  }
 
   if (loading) {
-    return <h2 className="text-center text-2xl">Loading movie...</h2>;
+    return <MovieDetailsSkeleton />;
   }
 
   if (error) {
@@ -75,8 +102,6 @@ function MovieDetails() {
       </div>
     );
   }
-
-  const userRating = watchedMovie?.userRating ?? 0;
 
   return (
     <section className="mx-auto max-w-6xl">
@@ -187,13 +212,7 @@ function MovieDetails() {
 
           <div className="mt-6 flex flex-wrap gap-4">
             <button
-              onClick={() => {
-                if (isInWatchlist) {
-                  removeFromWatchlist(movie.id);
-                } else {
-                  addToWatchlist(movie);
-                }
-              }}
+              onClick={handleWatchlistClick}
               className={`
                 rounded-lg
                 px-5
@@ -211,17 +230,7 @@ function MovieDetails() {
             </button>
 
             <button
-              onClick={() => {
-                if (isWatched) {
-                  removeFromWatched(movie.id);
-                } else {
-                  addToWatched(movie);
-
-                  if (isInWatchlist) {
-                    removeFromWatchlist(movie.id);
-                  }
-                }
-              }}
+              onClick={handleWatchedClick}
               className={`
                 rounded-lg
                 px-5
@@ -255,8 +264,65 @@ function MovieDetails() {
           )}
 
           <h2 className="mt-8 text-2xl font-semibold">Overview</h2>
-
           <p className="mt-3 leading-8">{movie.overview}</p>
+
+          <h2 className="mt-10 text-2xl font-bold">Available in India</h2>
+
+          {[
+            { title: "📺 Stream", items: providers.stream },
+            { title: "🎟 Rent", items: providers.rent },
+            { title: "🛒 Buy", items: providers.buy },
+          ].some((section) => section.items.length > 0) ? (
+            <div className="mt-5 space-y-8">
+              {[
+                { title: "📺 Stream", items: providers.stream },
+                { title: "🎟 Rent", items: providers.rent },
+                { title: "🛒 Buy", items: providers.buy },
+              ].map(
+                (section) =>
+                  section.items.length > 0 && (
+                    <div key={section.title}>
+                      <h3 className="mb-4 text-lg font-semibold">
+                        {section.title}
+                      </h3>
+
+                      <div className="flex flex-wrap gap-4">
+                        {section.items.map((provider) => (
+                          <div
+                            key={provider.provider_id}
+                            className="
+                    flex
+                    items-center
+                    gap-3
+                    rounded-xl
+                    border
+                    bg-white
+                    p-3
+                    shadow-sm
+                  "
+                          >
+                            <img
+                              src={getProviderLogoUrl(provider.logo_path)}
+                              alt={provider.provider_name}
+                              className="h-10 w-10 rounded-lg"
+                            />
+
+                            <span className="font-medium">
+                              {provider.provider_name}
+                            </span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  ),
+              )}
+            </div>
+          ) : (
+            <p className="mt-4 text-slate-500">
+              No streaming, rental, or purchase providers are currently
+              available in India.
+            </p>
+          )}
 
           <h2 className="mt-10 text-2xl font-bold">Director</h2>
           {director && (

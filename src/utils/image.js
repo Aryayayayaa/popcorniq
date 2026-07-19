@@ -1,4 +1,8 @@
-import { TMDB_BACKDROP_BASE_URL, TMDB_IMAGE_BASE_URL } from "../constants/api";
+import {
+  TMDB_BACKDROP_BASE_URL,
+  TMDB_IMAGE_BASE_URL,
+  TMDB_PROVIDER_LOGO_BASE_URL,
+} from "../constants/api";
 
 /**
  * Builds a full TMDB poster URL.
@@ -25,4 +29,10 @@ export function getProfileUrl(path) {
   return path
     ? `${TMDB_IMAGE_BASE_URL}${path}`
     : "https://placehold.co/300x450?text=No+Image";
+}
+
+export function getProviderLogoUrl(path) {
+  return path
+    ? `${TMDB_PROVIDER_LOGO_BASE_URL}${path}`
+    : "https://placehold.co/92x92?text=No+Logo";
 }

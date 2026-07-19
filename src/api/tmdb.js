@@ -127,3 +127,13 @@ export async function getMovieDetails(movieId) {
 export async function getMovieCredits(movieId) {
   return fetchFromTMDB(`/movie/${movieId}/credits`);
 }
+
+/**
+ * Fetches watch providers for a movie.
+ *
+ * @param {number|string} movieId
+ * @returns {Promise<Object>}
+ */
+export async function getMovieProviders(movieId) {
+  return fetchFromTMDB(`/movie/${movieId}/watch/providers`);
+}

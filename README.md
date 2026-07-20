@@ -12,7 +12,7 @@ A modern Movie Tracker web application built with **React** and powered by the *
 
 ## 🚀 Live Demo
 
-🔗 **Live Website:**
+🔗 **Live Website:https://popcorn-iq-tmdb.vercel.app/**
 
 ---
 
@@ -285,3 +285,5 @@ This application uses the **TMDB (The Movie Database) API** to fetch:
 **Arya Jain**
 
 Software Engineer | React Developer
+
+GitHub: https://github.com/Aryayayayaa

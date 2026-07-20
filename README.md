@@ -48,8 +48,9 @@ Sort movies using different criteria and order.
 ### 📄 Movie Details
 
 View complete movie information including overview, genres, runtime, release date and ratings.
+Rate movies after adding them to your watched list.
 
-![Movie Details](./screenshots/MovieDetailsPageCast.png)
+![Movie Details](./screenshots/MovieDetailsPage_UserAbleToRateMovie.png)
 
 ---
 
@@ -57,15 +58,8 @@ View complete movie information including overview, genres, runtime, release dat
 
 See cast members with profile images along with available streaming providers.
 
+![Cast & OTT](./screenshots/MovieDetailsPageCast.png)
 ![Cast & OTT](./screenshots/MovieDetailsPage_Cast_OTT.png)
-
----
-
-### ⭐ User Rating
-
-Rate movies after adding them to your watched list.
-
-![User Rating](./screenshots/MovieDetailsPage_UserAbleToRateMovie.png)
 
 ---
 

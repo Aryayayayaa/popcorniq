@@ -6,6 +6,15 @@ import "./index.css";
 import App from "./App";
 import { LibraryProvider } from "./context/LibraryContext";
 
+//StrictMode: find mistakes while developing
+
+//BrowserRouter comes from React Router.
+//It allows your React app to have multiple pages without reloading the website
+// used page navigations
+
+//LibraryProvider: Instead of passing data through every component,
+// you simply make the data available to everyone.
+
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>

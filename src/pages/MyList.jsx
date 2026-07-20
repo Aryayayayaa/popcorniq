@@ -5,7 +5,6 @@ import { useState } from "react";
 
 function MyList() {
   const { state } = useLibrary();
-
   const { watchlist, watched } = state;
 
   return (
@@ -17,7 +16,7 @@ function MyList() {
           <p className="text-lg text-slate-600">Your library is empty.</p>
 
           <p className="mt-2 text-slate-500">
-            Start exploring movies and add them to your watchlist.
+            Start exploring movies and add them to your Watchlist.
           </p>
         </div>
       ) : (

@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 
 import { getMovieDetails } from "../api/tmdb";
 
-/**
- * Fetches details for a single movie.
- */
+//Fetches details for a single movie.
+
 function useMovieDetails(movieId) {
   const [movie, setMovie] = useState(null);
 
@@ -15,15 +14,11 @@ function useMovieDetails(movieId) {
   async function loadMovie() {
     try {
       setLoading(true);
-
       setError("");
-
       const movieData = await getMovieDetails(movieId);
-
       setMovie(movieData);
     } catch (error) {
       console.error(error);
-
       setError(error.message);
     } finally {
       setLoading(false);
@@ -32,7 +27,6 @@ function useMovieDetails(movieId) {
 
   useEffect(() => {
     if (!movieId) return;
-
     loadMovie();
   }, [movieId]);
 

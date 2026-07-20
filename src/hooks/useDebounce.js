@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-
 import { DEBOUNCE_DELAY } from "../constants/movie";
 
 function useDebounce(value, delay = DEBOUNCE_DELAY) {
+  //value = searchQuery/input entered by user
   const [debouncedValue, setDebouncedValue] = useState(value);
 
   useEffect(() => {
@@ -14,7 +14,6 @@ function useDebounce(value, delay = DEBOUNCE_DELAY) {
       clearTimeout(timer);
     };
   }, [value, delay]);
-
   return debouncedValue;
 }
 

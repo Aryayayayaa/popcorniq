@@ -1,6 +1,5 @@
-/**
- * Browse page pagination controls.
- */
+// Browse page pagination controls.
+
 function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
   return (
     <div className="mt-10 flex items-center justify-center gap-6">

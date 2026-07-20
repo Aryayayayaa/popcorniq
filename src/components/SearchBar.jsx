@@ -20,5 +20,4 @@ function SearchBar({ value, onChange }) {
     />
   );
 }
-
 export default SearchBar;

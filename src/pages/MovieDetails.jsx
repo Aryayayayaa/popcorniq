@@ -26,7 +26,9 @@ function MovieDetails() {
   const navigate = useNavigate();
   const location = useLocation();
 
+  //navigate back to previous page
   const previousLocation = location.state?.from;
+
   const { credits } = useMovieCredits(id);
   const { providers } = useMovieProviders(id);
 

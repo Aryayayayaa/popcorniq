@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 
 import { getMovieProviders } from "../api/tmdb";
 
+//Return info on which OTT platform the movie is available
+// to watch/buy/rent
 function useMovieProviders(movieId) {
   const [providers, setProviders] = useState({
     stream: [],
@@ -32,7 +34,6 @@ function useMovieProviders(movieId) {
 
   useEffect(() => {
     if (!movieId) return;
-
     loadProviders();
   }, [movieId]);
 

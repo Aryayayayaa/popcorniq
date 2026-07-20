@@ -13,10 +13,7 @@ import { DEFAULT_SORT } from "../constants/movie";
 import { ROUTES } from "../constants/routes";
 
 function Browse() {
-  // const [searchQuery, setSearchQuery] = useState("");
-  // const [sortBy, setSortBy] = useState(DEFAULT_SORT);
-  // const [page, setPage] = useState(1);
-
+  //searchParams = URL
   const [searchParams, setSearchParams] = useSearchParams();
 
   const searchQuery = searchParams.get("query") ?? "";
@@ -109,16 +106,16 @@ function Browse() {
           <Link
             to={ROUTES.HOME}
             className="
-        flex
-        items-center
-        gap-2
-        rounded-lg
-        bg-blue-600
-        px-5
-        py-2
-        text-white
-        hover:bg-blue-700
-      "
+              flex
+              items-center
+              gap-2
+              rounded-lg
+              bg-blue-600
+              px-5
+              py-2
+              text-white
+              hover:bg-blue-700
+            "
             onClick={() => setSearchParams({})}
           >
             <Home size={18} />
@@ -187,7 +184,7 @@ function Browse() {
           </button>
         </div>
       )}
-      {!loading && !error && movies.length === 0 && (
+      {!loading && !error && sortedMovies.length === 0 && (
         <div className="mt-20 text-center">
           <h2 className="text-3xl font-bold">No movies found.</h2>
 
@@ -215,7 +212,7 @@ function Browse() {
           </Link>
         </div>
       )}
-      {!loading && !error && movies.length > 0 && (
+      {!loading && !error && sortedMovies.length > 0 && (
         <MovieGrid movies={sortedMovies} />
       )}
 

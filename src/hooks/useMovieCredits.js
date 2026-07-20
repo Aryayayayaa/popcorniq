@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 
 import { getMovieCredits } from "../api/tmdb";
 
-/**
- * Fetches cast and crew for a movie.
- */
+//Fetches cast and crew for a movie.
+
 function useMovieCredits(movieId) {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -14,9 +13,7 @@ function useMovieCredits(movieId) {
     try {
       setLoading(true);
       setError("");
-
       const data = await getMovieCredits(movieId);
-
       setCredits(data);
     } catch (error) {
       console.error(error);
@@ -28,7 +25,6 @@ function useMovieCredits(movieId) {
 
   useEffect(() => {
     if (!movieId) return;
-
     loadCredits();
   }, [movieId]);
 

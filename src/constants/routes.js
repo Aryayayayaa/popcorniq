@@ -1,6 +1,5 @@
-/**
- * Application routes.
- */
+// Application routes.
+// mapping each page to the route
 
 export const ROUTES = {
   HOME: "/",

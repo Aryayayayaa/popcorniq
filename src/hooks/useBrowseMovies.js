@@ -27,13 +27,11 @@ function useBrowseMovies(query, page) {
       setTotalPages(data.total_pages ?? 1);
     } catch (err) {
       console.error(err);
-
       if (err instanceof TypeError) {
         setError("Unable to connect to TMDB. Please try again.");
       } else {
         setError(err.message);
       }
-
       setMovies([]);
     } finally {
       setLoading(false);

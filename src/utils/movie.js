@@ -1,8 +1,7 @@
 import { format } from "date-fns";
 
-/**
- * Formats runtime in minutes to "2h 28m".
- */
+// Formats runtime in minutes to "2h 28m".
+
 export function formatRuntime(minutes) {
   if (!minutes) return "N/A";
 
@@ -12,9 +11,7 @@ export function formatRuntime(minutes) {
   return `${hours}h ${mins}m`;
 }
 
-/**
- * Formats release date.
- */
+//Formats release date.
 export function formatReleaseDate(date) {
   if (!date) return "Unknown";
 

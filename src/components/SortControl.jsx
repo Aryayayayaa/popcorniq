@@ -1,6 +1,5 @@
-/**
- * Dropdown used to select how movies are sorted.
- */
+// Dropdown used to select how movies are sorted.
+
 function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
   return (
     <>

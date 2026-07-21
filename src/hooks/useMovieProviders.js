@@ -7,6 +7,7 @@ import { getMovieProviders } from "../api/tmdb";
 function useMovieProviders(movieId) {
   const [providers, setProviders] = useState({
     stream: [],
+    ads: [],
     rent: [],
     buy: [],
   });
@@ -21,6 +22,7 @@ function useMovieProviders(movieId) {
       const indianProviders = data.results?.IN ?? {};
       setProviders({
         stream: indianProviders.flatrate ?? [],
+        ads: indianProviders.ads ?? [],
         rent: indianProviders.rent ?? [],
         buy: indianProviders.buy ?? [],
       });

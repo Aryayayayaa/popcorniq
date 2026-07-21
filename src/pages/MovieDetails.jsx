@@ -10,6 +10,7 @@ import MovieDetailsSkeleton from "../components/MovieDetailsSkeleton";
 import { useLibrary } from "../context/LibraryContext";
 import RatingStars from "../components/RatingStars";
 
+import PROVIDER_LINKS from "../constants/providerLinks";
 import { ROUTES } from "../constants/routes";
 
 import {
@@ -281,12 +282,14 @@ function MovieDetails() {
 
           {[
             { title: "📺 Stream", items: providers.stream },
+            { title: "📢 Watch with Ads", items: providers.ads },
             { title: "🎟 Rent", items: providers.rent },
             { title: "🛒 Buy", items: providers.buy },
           ].some((section) => section.items.length > 0) ? (
             <div className="mt-5 space-y-8">
               {[
                 { title: "📺 Stream", items: providers.stream },
+                { title: "📢 Watch with Ads", items: providers.ads },
                 { title: "🎟 Rent", items: providers.rent },
                 { title: "🛒 Buy", items: providers.buy },
               ].map(
@@ -298,31 +301,65 @@ function MovieDetails() {
                       </h3>
 
                       <div className="flex flex-wrap gap-4">
-                        {section.items.map((provider) => (
-                          <div
-                            key={provider.provider_id}
-                            className="
-                    flex
-                    items-center
-                    gap-3
-                    rounded-xl
-                    border
-                    bg-white
-                    p-3
-                    shadow-sm
-                  "
-                          >
-                            <img
-                              src={getProviderLogoUrl(provider.logo_path)}
-                              alt={provider.provider_name}
-                              className="h-10 w-10 rounded-lg"
-                            />
+                        {section.items.map((provider) => {
+                          const providerUrl =
+                            PROVIDER_LINKS[provider.provider_name];
+                          return providerUrl ? (
+                            <a
+                              key={provider.provider_id}
+                              href={providerUrl}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="
+                                  flex
+                                  items-center
+                                  gap-3
+                                  rounded-xl
+                                  border
+                                  bg-white
+                                  p-3
+                                  shadow-sm
+                                  transition
+                                  hover:-translate-y-1
+                                  hover:shadow-md
+                                "
+                            >
+                              <img
+                                src={getProviderLogoUrl(provider.logo_path)}
+                                alt={provider.provider_name}
+                                className="h-10 w-10 rounded-lg"
+                              />
 
-                            <span className="font-medium">
-                              {provider.provider_name}
-                            </span>
-                          </div>
-                        ))}
+                              <span className="font-medium">
+                                {provider.provider_name}
+                              </span>
+                            </a>
+                          ) : (
+                            <div
+                              key={provider.provider_id}
+                              className="
+                                  flex
+                                  items-center
+                                  gap-3
+                                  rounded-xl
+                                  border
+                                  bg-white
+                                  p-3
+                                  shadow-sm
+                                "
+                            >
+                              <img
+                                src={getProviderLogoUrl(provider.logo_path)}
+                                alt={provider.provider_name}
+                                className="h-10 w-10 rounded-lg"
+                              />
+
+                              <span className="font-medium">
+                                {provider.provider_name}
+                              </span>
+                            </div>
+                          );
+                        })}
                       </div>
                     </div>
                   ),
@@ -330,8 +367,8 @@ function MovieDetails() {
             </div>
           ) : (
             <p className="mt-4 text-slate-500">
-              No streaming, rental, or purchase providers are currently
-              available in India.
+              Streaming availability data is provided by TMDB and may
+              occasionally be incomplete for your region.
             </p>
           )}
 

@@ -1,0 +1,27 @@
+const PROVIDER_LINKS = {
+  Netflix: "https://www.netflix.com",
+  "Amazon Video": "https://www.primevideo.com",
+  "Amazon Prime Video": "https://www.primevideo.com",
+  "Disney Plus Hotstar": "https://www.hotstar.com/in",
+  JioHotstar: "https://www.hotstar.com/in",
+  "Apple TV": "https://tv.apple.com",
+  "Apple TV Store": "https://tv.apple.com",
+  Zee5: "https://www.zee5.com",
+  SonyLIV: "https://www.sonyliv.com",
+  JioCinema: "https://www.jiocinema.com",
+  LionsgatePlay: "https://lionsgateplay.com",
+  MUBI: "https://mubi.com",
+  aha: "https://www.aha.video",
+  Hoichoi: "https://www.hoichoi.tv",
+  Plex: "https://watch.plex.tv",
+  YouTube: "https://www.youtube.com",
+  GooglePlay: "https://play.google.com/store/movies",
+  "Google Play Movies": "https://play.google.com/store/movies",
+  Microsoft: "https://www.microsoft.com/store/movies-and-tv",
+  BookMyShow: "https://in.bookmyshow.com",
+  SunNXT: "https://www.sunnxt.com",
+  "VI movies and tv": "https://www.vimoviesandtv.in",
+  "Eros Now Select Apple TV Channel": "https://tv.apple.com",
+};
+
+export default PROVIDER_LINKS;

@@ -47,7 +47,7 @@ Sort movies using different criteria and order.
 
 ### 📄 Movie Details
 
-View complete movie information including overview, genres, runtime, release date and ratings.
+View complete movie information including overview, genres, runtime, release date, cast, crew, ratings, and OTT availability in India.
 Rate movies after adding them to your watched list.
 
 ![Movie Details](./screenshots/MovieDetailsPage_UserAbleToRateMovie.png)
@@ -56,7 +56,7 @@ Rate movies after adding them to your watched list.
 
 ### 🎭 Cast & OTT Providers
 
-See cast members with profile images along with available streaming providers.
+See cast members with profile images along with OTT availability in India. Click supported providers to open their official streaming platforms in a new tab.
 
 ![Cast & OTT](./screenshots/MovieDetailsPageCast.png)
 ![Cast & OTT](./screenshots/MovieDetailsPage_Cast_OTT.png)
@@ -82,6 +82,21 @@ Add or remove movies directly from the movie cards without opening the details p
 **Added to Both Lists**
 
 ![Added to Both](./screenshots/MovieCardAction_AddedToBoth.png)
+
+---
+
+### 📱 Responsive Design
+
+Optimized for desktop, tablet, and mobile devices.
+
+**Desktop View:**
+![Desktop](./screenshots/DesktopView.png)
+
+**Tablet View:**
+![Tablet](./screenshots/TabletView.png)
+
+**Mobile View**
+![Mobile](./screenshots/MobileView.png)
 
 ---
 
@@ -120,7 +135,9 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 - Director
 - Producers
 - Cast with profile images
-- OTT streaming providers
+- OTT availability in India
+- Stream, Rent, Buy and Watch with Ads categories
+- Direct links to supported OTT platforms
 
 ### 📚 Personal Library
 
@@ -131,6 +148,14 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 - Rate watched movies
 - Ratings stored locally
 - Library persists using Local Storage
+
+### 📱 Responsive Design
+
+- Optimized for desktop, tablet, and mobile devices
+- Responsive movie grid layout
+- Adaptive navigation and spacing
+- Flexible movie details page
+- Touch-friendly buttons and interactive elements
 
 ### ⚡ User Experience
 
@@ -258,7 +283,7 @@ This application uses the **TMDB (The Movie Database) API** to fetch:
 - Search Results
 - Movie Details
 - Cast & Crew Information
-- Streaming Providers
+- Watch Providers (Stream, Rent, Buy & Ads)
 
 ---
 
@@ -271,6 +296,7 @@ This application uses the **TMDB (The Movie Database) API** to fetch:
 - User authentication
 - Cloud sync
 - Recommendations
+- Support multiple countries for OTT availability
 
 ---
 

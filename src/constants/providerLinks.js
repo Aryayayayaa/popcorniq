@@ -22,7 +22,7 @@ const PROVIDER_LINKS = {
   SunNXT: "https://www.sunnxt.com",
   "VI movies and tv": "https://www.vimoviesandtv.in",
   "Eros Now Select Apple TV Channel": "https://tv.apple.com",
-  SonyLIV: "https://www.sonyliv.com",
+  "Sony Liv": "https://www.sonyliv.com",
   "Lionsgate Play": "https://lionsgateplay.com",
   "Lionsgate Play Apple TV Channel": "https://tv.apple.com",
   "Lionsgate Play Amazon Channel": "https://www.primevideo.com",

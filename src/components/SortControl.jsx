@@ -7,16 +7,18 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
         value={value}
         onChange={onChange}
         className="
-        rounded-lg
-        border
-        border-slate-300
-        px-4
-        py-3
-        focus:border-blue-500
-        focus:outline-none
-        focus:ring-2
-        focus:ring-blue-200
-      "
+          w-full
+          rounded-lg
+          border
+          border-slate-300
+          px-4
+          py-3
+          focus:border-blue-500
+          focus:outline-none
+          focus:ring-2
+          focus:ring-blue-200
+          sm:w-auto
+        "
       >
         <option value="popularity">Popularity</option>
         <option value="rating">Rating</option>
@@ -27,6 +29,7 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
         value={order}
         onChange={onOrderChange}
         className="
+          w-full
           rounded-lg
           border
           border-slate-300
@@ -36,6 +39,7 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
           focus:outline-none
           focus:ring-2
           focus:ring-blue-200
+          sm:w-auto
         "
       >
         <option value="desc">{orderOptions.desc}</option>

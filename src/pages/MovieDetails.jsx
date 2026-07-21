@@ -107,7 +107,7 @@ function MovieDetails() {
 
   return (
     <section className="mx-auto max-w-6xl">
-      <div className="mb-8 flex gap-4">
+      <div className="mb-8 flex flex-col gap-3 sm:flex-row">
         <button
           onClick={() => {
             if (previousLocation) {
@@ -155,28 +155,33 @@ function MovieDetails() {
         src={getBackdropUrl(movie.backdrop_path)}
         alt={movie.title}
         className="
-        mb-8
-        h-80
-        w-full
-        rounded-xl
-        object-cover"
+          mb-8
+          h-48
+          w-full
+          rounded-xl
+          object-cover
+          sm:h-64
+          lg:h-80
+          "
       />
 
       <div className="grid gap-10 md:grid-cols-2">
         <img
           src={getPosterUrl(movie.poster_path)}
           alt={movie.title}
-          className="w-full rounded-xl shadow-xl"
+          className="
+            mx-auto
+            w-full
+            max-w-sm
+            rounded-xl
+            shadow-xl
+            "
         />
 
         <div>
-          <h1 className="text-5xl font-bold">{movie.title}</h1>
-
-          {/* <p className="mt-4 text-lg text-slate-600">⭐ {movie.vote_average}</p>
-
-          <p className="mt-2">📅 {movie.release_date}</p>
-
-          <p className="mt-2">⏱ {movie.runtime} minutes</p> */}
+          <h1 className="text-3xl font-bold sm:text-4xl lg:text-5xl">
+            {movie.title}
+          </h1>
 
           <div className="mt-6 flex flex-wrap gap-6">
             <div className="flex items-center gap-2">
@@ -212,13 +217,15 @@ function MovieDetails() {
             ))}
           </div>
 
-          <div className="mt-6 flex flex-wrap gap-4">
+          <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <button
               onClick={handleWatchlistClick}
               className={`
                 rounded-lg
+                w-full
                 px-5
                 py-3
+                sm:w-auto
                 font-medium
                 transition-colors
                 ${
@@ -235,8 +242,10 @@ function MovieDetails() {
               onClick={handleWatchedClick}
               className={`
                 rounded-lg
+                w-full
                 px-5
                 py-3
+                sm:w-auto
                 font-medium
                 transition-colors
                 ${
@@ -266,7 +275,7 @@ function MovieDetails() {
           )}
 
           <h2 className="mt-8 text-2xl font-semibold">Overview</h2>
-          <p className="mt-3 leading-8">{movie.overview}</p>
+          <p className="mt-3 leading-7 sm:leading-8">{movie.overview}</p>
 
           <h2 className="mt-10 text-2xl font-bold">Available in India</h2>
 
@@ -328,7 +337,7 @@ function MovieDetails() {
 
           <h2 className="mt-10 text-2xl font-bold">Director</h2>
           {director && (
-            <div className="mt-4 flex items-center gap-4">
+            <div className="mt-4 flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left">
               <img
                 src={getProfileUrl(director.profile_path)}
                 alt={director.name}
@@ -342,13 +351,13 @@ function MovieDetails() {
           )}
 
           <h2 className="mt-10 text-2xl font-bold">Producers</h2>
-          <div className="mt-5 grid grid-cols-2 gap-6 md:grid-cols-4">
+          <div className="mt-5 grid gap-6 grid-cols-2 sm:grid-cols-3 lg:grid-cols-4">
             {producers.map((producer) => (
               <div key={producer.id} className="text-center">
                 <img
                   src={getProfileUrl(producer.profile_path)}
                   alt={producer.name}
-                  className="mx-auto h-24 w-24 rounded-full object-cover"
+                  className="mx-auto h-20 w-20 sm:h-24 sm:w-24 rounded-full object-cover"
                 />
                 <p className="mt-3 font-medium">{producer.name}</p>
               </div>
@@ -357,7 +366,7 @@ function MovieDetails() {
 
           <h2 className="mt-10 text-2xl font-bold">Top Cast</h2>
 
-          <div className="mt-5 grid grid-cols-2 gap-6 md:grid-cols-5">
+          <div className="mt-5 grid sm:grid-cols-3 lg:grid-cols-5 gap-6 grid-cols-2">
             {cast.map((actor) => (
               <div key={actor.id} className="text-center">
                 <img
@@ -365,8 +374,12 @@ function MovieDetails() {
                   alt={actor.name}
                   className="
                         mx-auto
-                        h-32
-                        w-32
+                        h-24
+                        w-24
+                        sm:h-28
+                        sm:w-28
+                        lg:h-32
+                        lg:w-32
                         rounded-full
                         object-cover
                         "

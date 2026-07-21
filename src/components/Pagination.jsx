@@ -2,15 +2,27 @@
 
 function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
   return (
-    <div className="mt-10 flex items-center justify-center gap-6">
+    <div
+      className="
+        mt-10
+        flex
+        flex-wrap
+        items-center
+        justify-center
+        gap-4
+        sm:gap-6
+      "
+    >
       <button
         onClick={onPrevious}
         disabled={currentPage === 1}
         className="
           rounded-lg
           bg-slate-800
+          w-full
           px-5
           py-2
+          sm:w-auto
           text-white
           disabled:cursor-not-allowed
           disabled:opacity-40
@@ -29,8 +41,10 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
         className="
           rounded-lg
           bg-slate-800
+          w-full
           px-5
           py-2
+          sm:w-auto
           text-white
           disabled:cursor-not-allowed
           disabled:opacity-40

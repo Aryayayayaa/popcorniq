@@ -10,23 +10,73 @@ function Layout() {
   return (
     <div className="min-h-screen bg-slate-100">
       <header className="bg-slate-900 text-white shadow-md">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
+        <div
+          className="
+            mx-auto
+            flex
+            max-w-7xl
+            flex-col
+            items-center
+            gap-4
+            px-4
+            py-4
+            sm:flex-row
+            sm:justify-between
+            sm:px-6
+          "
+        >
           <Link
             to={ROUTES.HOME}
-            className="text-3xl font-bold tracking-wide hover:text-yellow-400 transition-colors"
+            className="
+              flex
+              items-center
+              gap-2
+              text-2xl
+              font-bold
+              tracking-wide
+              transition-colors
+              hover:text-yellow-400
+              sm:text-3xl
+              "
           >
             <span>🍿</span>
             <span>PopcornIQ</span>
           </Link>
 
-          <nav className="flex gap-8 text-lg font-medium">
-            <Link to="/" className="hover:text-yellow-400 transition-colors">
+          <nav
+            className="
+              flex
+              flex-wrap
+              justify-center
+              gap-4
+              text-base
+              font-medium
+              sm:gap-8
+              sm:text-lg
+            "
+          >
+            <Link
+              to="/"
+              className="
+                rounded-md
+                px-2
+                py-1
+                transition-colors
+                hover:text-yellow-400
+                "
+            >
               Browse
             </Link>
 
             <Link
               to={ROUTES.MY_LIST}
-              className="hover:text-yellow-400 transition-colors"
+              className="
+                rounded-md
+                px-2
+                py-1
+                transition-colors
+                hover:text-yellow-400
+                "
             >
               {totalLibraryCount > 0
                 ? `My List (${totalLibraryCount})`
@@ -36,7 +86,16 @@ function Layout() {
         </div>
       </header>
 
-      <main className="mx-auto max-w-7xl px-6 py-8">
+      <main
+        className="
+          mx-auto
+          max-w-7xl
+          px-4
+          py-6
+          sm:px-6
+          sm:py-8
+        "
+      >
         <Outlet />
       </main>
     </div>

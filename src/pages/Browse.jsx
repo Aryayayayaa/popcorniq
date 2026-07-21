@@ -102,7 +102,7 @@ function Browse() {
   return (
     <>
       {isSearching && (
-        <div className="mb-6 flex justify-start">
+        <div className="mb-6 flex justify-center sm:justify-start">
           <Link
             to={ROUTES.HOME}
             className="
@@ -124,7 +124,7 @@ function Browse() {
         </div>
       )}
       <section className="text-center">
-        <h1 className="text-4xl font-bold">
+        <h1 className="text-3xl font-bold md:text-4xl">
           {isSearching ? "Search Results" : "Browse Popular Movies"}
         </h1>
 

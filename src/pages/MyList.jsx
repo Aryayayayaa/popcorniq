@@ -1,15 +1,15 @@
 import MovieGrid from "../components/MovieGrid";
 import { useLibrary } from "../context/LibraryContext";
 
-import { useState } from "react";
-
 function MyList() {
   const { state } = useLibrary();
   const { watchlist, watched } = state;
 
   return (
     <section className="mx-auto max-w-7xl">
-      <h1 className="mb-10 text-center text-4xl font-bold">My Library</h1>
+      <h1 className="mb-10 text-center text-3xl font-bold sm:text-4xl">
+        My Library
+      </h1>
 
       {watchlist.length === 0 && watched.length === 0 ? (
         <div className="text-center">
@@ -22,7 +22,7 @@ function MyList() {
       ) : (
         <div className="space-y-12">
           <section>
-            <h2 className="mb-6 text-2xl font-semibold">
+            <h2 className="mb-6 text-xl font-semibold sm:text-2xl">
               🎬 Watchlist ({watchlist.length})
             </h2>
 
@@ -36,7 +36,7 @@ function MyList() {
           </section>
 
           <section>
-            <h2 className="mb-6 text-2xl font-semibold">
+            <h2 className="mb-6 text-xl font-semibold sm:text-2xl">
               ✅ Watched ({watched.length})
             </h2>
 

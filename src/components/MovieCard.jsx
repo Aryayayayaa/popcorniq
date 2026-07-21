@@ -43,6 +43,9 @@ function MovieCard({ movie }) {
   return (
     <article
       className="
+        flex
+        h-full
+        flex-col
         overflow-hidden
         rounded-xl
         bg-white
@@ -56,13 +59,26 @@ function MovieCard({ movie }) {
         <img
           src={poster}
           alt={movie.title}
-          className="h-80 w-full object-cover"
+          className="
+            h-72
+            w-full
+            object-cover
+            sm:h-80
+          "
         />
       </Link>
 
-      <div className="space-y-3 p-4">
+      <div className="flex flex-1 flex-col space-y-3 p-4">
         <Link to={`/movie/${movie.id}`} state={{ from: location }}>
-          <h2 className="line-clamp-2 text-lg font-semibold hover:text-blue-600">
+          <h2
+            className="
+              min-h-[3.5rem]
+              line-clamp-2
+              text-lg
+              font-semibold
+              hover:text-blue-600
+            "
+          >
             {movie.title}
           </h2>
         </Link>
@@ -75,11 +91,11 @@ function MovieCard({ movie }) {
           📅 {formatReleaseDate(movie.release_date)}
         </p>
 
-        <div className="flex gap-2">
+        <div className="mt-auto flex gap-2">
           <button
             type="button"
             onClick={handleWatchlistClick}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition ${
+            className={`flex-1 rounded-md px-2 py-2 text-xs font-medium transition sm:px-3 sm:text-sm ${
               isInWatchlist
                 ? "bg-red-100 text-red-700 hover:bg-red-200"
                 : "bg-blue-100 text-blue-700 hover:bg-blue-200"
@@ -91,7 +107,7 @@ function MovieCard({ movie }) {
           <button
             type="button"
             onClick={handleWatchedClick}
-            className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition ${
+            className={`flex-1 rounded-md px-2 py-2 text-xs font-medium transition sm:px-3 sm:text-sm ${
               isInWatched
                 ? "bg-green-100 text-green-700 hover:bg-green-200"
                 : "bg-yellow-100 text-yellow-700 hover:bg-yellow-200"

@@ -7,6 +7,7 @@ import useBrowseMovies from "../hooks/useBrowseMovies";
 import useGenres from "../hooks/useGenres";
 
 import GenreFilter from "../components/GenreFilter";
+import LanguageFilter from "../components/LanguageFilter";
 import MovieGrid from "../components/MovieGrid";
 import Pagination from "../components/Pagination";
 import ReleaseYearFilter from "../components/ReleaseYearFilter";
@@ -26,6 +27,7 @@ function Browse() {
   const sortOrder = searchParams.get("order") ?? "desc";
   const selectedGenre = searchParams.get("genre") ?? "";
   const selectedYear = searchParams.get("year") ?? "";
+  const selectedLanguage = searchParams.get("language") ?? "";
 
   const debouncedQuery = useDebounce(searchQuery);
   const { genres } = useGenres();
@@ -33,7 +35,13 @@ function Browse() {
   const isSearching = debouncedQuery.trim() !== "";
 
   const { movies, loading, error, retry, currentPage, totalPages } =
-    useBrowseMovies(debouncedQuery, page, selectedGenre, selectedYear);
+    useBrowseMovies(
+      debouncedQuery,
+      page,
+      selectedGenre,
+      selectedYear,
+      selectedLanguage,
+    );
 
   /**
    * Sorting is derived from the current movie list.
@@ -142,11 +150,12 @@ function Browse() {
         </p>
       </section>
 
-      <div className="mt-8 flex flex-col gap-4 md:flex-row">
+      <div className="mt-8 space-y-4">
         <SearchBar
           value={searchQuery}
           onChange={(event) => {
             const value = event.target.value;
+
             updateSearchParams({
               query: value.trim() ? value : "",
               page: 1,
@@ -154,51 +163,66 @@ function Browse() {
               order: sortOrder,
               genre: value.trim() ? "" : selectedGenre,
               year: value.trim() ? "" : selectedYear,
+              language: value.trim() ? "" : selectedLanguage,
             });
           }}
         />
 
-        <GenreFilter
-          genres={genres}
-          selectedGenre={selectedGenre}
-          disabled={isSearching}
-          onChange={(event) => {
-            updateSearchParams({
-              genre: event.target.value,
-              page: 1,
-            });
-          }}
-        />
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-5">
+          <GenreFilter
+            genres={genres}
+            value={selectedGenre}
+            disabled={isSearching}
+            onChange={(event) => {
+              updateSearchParams({
+                genre: event.target.value,
+                page: 1,
+              });
+            }}
+          />
 
-        <ReleaseYearFilter
-          value={selectedYear}
-          disabled={isSearching}
-          onChange={(event) => {
-            updateSearchParams({
-              year: event.target.value,
-              page: 1,
-            });
-          }}
-        />
+          <ReleaseYearFilter
+            value={selectedYear}
+            disabled={isSearching}
+            onChange={(event) => {
+              updateSearchParams({
+                year: event.target.value,
+                page: 1,
+              });
+            }}
+          />
 
-        <SortControl
-          value={sortBy}
-          onChange={(event) => {
-            updateSearchParams({
-              sort: event.target.value,
-              order: sortOrder,
-            });
-          }}
-          order={sortOrder}
-          onOrderChange={(event) => {
-            updateSearchParams({
-              sort: sortBy,
-              order: event.target.value,
-            });
-          }}
-          orderOptions={orderOptions}
-        />
+          <LanguageFilter
+            value={selectedLanguage}
+            disabled={isSearching}
+            onChange={(event) => {
+              updateSearchParams({
+                language: event.target.value,
+                page: 1,
+              });
+            }}
+          />
+
+          <SortControl
+            value={sortBy}
+            onChange={(event) => {
+              updateSearchParams({
+                sort: event.target.value,
+                order: sortOrder,
+              });
+            }}
+            order={sortOrder}
+            onOrderChange={(event) => {
+              updateSearchParams({
+                sort: sortBy,
+                order: event.target.value,
+              });
+            }}
+            orderOptions={orderOptions}
+          />
+        </div>
       </div>
+
       {loading && (
         <div className="mt-8 rounded-lg bg-blue-100 p-4 text-center text-blue-700">
           Loading movies...

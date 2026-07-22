@@ -1,6 +1,6 @@
 function GenreFilter({ genres, value, onChange, disabled = false }) {
   return (
-    <div className="min-w-52">
+    <div className="w-full">
       <select
         value={value}
         onChange={onChange}

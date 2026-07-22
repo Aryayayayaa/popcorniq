@@ -8,7 +8,7 @@ function ReleaseYearFilter({ value, onChange, disabled = false }) {
   }, []);
 
   return (
-    <div className="min-w-44">
+    <div className="w-full">
       <select
         value={value}
         onChange={onChange}

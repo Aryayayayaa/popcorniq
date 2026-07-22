@@ -2,7 +2,7 @@
 
 function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
   return (
-    <>
+    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:col-span-2">
       <select
         value={value}
         onChange={onChange}
@@ -17,7 +17,9 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
           focus:outline-none
           focus:ring-2
           focus:ring-blue-200
-          sm:w-auto
+          dark:border-slate-700
+          dark:bg-slate-800
+          dark:text-white
         "
       >
         <option value="popularity">Popularity</option>
@@ -25,6 +27,7 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
         <option value="release-date">Release Date</option>
         <option value="title">Title (A-Z)</option>
       </select>
+
       <select
         value={order}
         onChange={onOrderChange}
@@ -39,13 +42,15 @@ function SortControl({ value, onChange, order, onOrderChange, orderOptions }) {
           focus:outline-none
           focus:ring-2
           focus:ring-blue-200
-          sm:w-auto
+          dark:border-slate-700
+          dark:bg-slate-800
+          dark:text-white
         "
       >
         <option value="desc">{orderOptions.desc}</option>
         <option value="asc">{orderOptions.asc}</option>
       </select>
-    </>
+    </div>
   );
 }
 

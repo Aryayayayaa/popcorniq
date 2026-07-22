@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getMovieProviders } from "../api/tmdb";
 
-//Return info on which OTT platform the movie is available
+// Return info on which OTT platform the movie is available
 // to watch/buy/rent
+
 function useMovieProviders(movieId) {
   const [providers, setProviders] = useState({
     stream: [],
@@ -11,15 +12,18 @@ function useMovieProviders(movieId) {
     rent: [],
     buy: [],
   });
+
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadProviders() {
+  const loadProviders = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
+
       const data = await getMovieProviders(movieId);
       const indianProviders = data.results?.IN ?? {};
+
       setProviders({
         stream: indianProviders.flatrate ?? [],
         ads: indianProviders.ads ?? [],
@@ -32,17 +36,18 @@ function useMovieProviders(movieId) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [movieId]);
 
   useEffect(() => {
     if (!movieId) return;
     loadProviders();
-  }, [movieId]);
+  }, [movieId, loadProviders]);
 
   return {
     providers,
     loading,
     error,
+    retry: loadProviders,
   };
 }
 

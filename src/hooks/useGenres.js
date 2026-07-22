@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getGenres } from "../api/tmdb";
 
@@ -7,7 +7,7 @@ function useGenres() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadGenres() {
+  const loadGenres = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
@@ -20,16 +20,17 @@ function useGenres() {
     } finally {
       setLoading(false);
     }
-  }
+  }, []);
 
   useEffect(() => {
     loadGenres();
-  }, []);
+  }, [loadGenres]);
 
   return {
     genres,
     loading,
     error,
+    retry: loadGenres,
   };
 }
 

@@ -6,8 +6,8 @@ import { ArrowLeft, Calendar, Clock3, Home, Star } from "lucide-react";
 import useMovieCredits from "../hooks/useMovieCredits";
 import useMovieDetails from "../hooks/useMovieDetails";
 import useMovieProviders from "../hooks/useMovieProviders";
+import useLibrary from "../hooks/useLibrary";
 import MovieDetailsSkeleton from "../components/MovieDetailsSkeleton";
-import { useLibrary } from "../context/LibraryContext";
 import RatingStars from "../components/RatingStars";
 
 import PROVIDER_LINKS from "../constants/providerLinks";

@@ -1,18 +1,19 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { getMovieCredits } from "../api/tmdb";
 
-//Fetches cast and crew for a movie.
+// Fetches cast and crew for a movie.
 
 function useMovieCredits(movieId) {
   const [credits, setCredits] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  async function loadCredits() {
+  const loadCredits = useCallback(async () => {
     try {
       setLoading(true);
       setError("");
+
       const data = await getMovieCredits(movieId);
       setCredits(data);
     } catch (error) {
@@ -21,12 +22,12 @@ function useMovieCredits(movieId) {
     } finally {
       setLoading(false);
     }
-  }
+  }, [movieId]);
 
   useEffect(() => {
     if (!movieId) return;
     loadCredits();
-  }, [movieId]);
+  }, [movieId, loadCredits]);
 
   return {
     credits,

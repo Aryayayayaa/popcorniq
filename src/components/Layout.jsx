@@ -1,7 +1,7 @@
 import { Link, Outlet } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
-import { useLibrary } from "../context/LibraryContext";
+import useLibrary from "../hooks/useLibrary";
 import ThemeToggle from "./ThemeToggle";
 
 function Layout() {

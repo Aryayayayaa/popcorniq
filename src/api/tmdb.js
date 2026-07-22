@@ -48,12 +48,18 @@ async function fetchFromTMDB(endpoint) {
 
         throw new Error(
           errorData.status_message || "TMDB returned an unexpected error.",
+          {
+            cause: errorData,
+          },
         );
       }
 
       // CloudFront / HTML error page.
       throw new Error(
         `TMDB server error (${response.status}). Please try again in a few moments.`,
+        {
+          cause: response,
+        },
       );
     }
 
@@ -64,11 +70,16 @@ async function fetchFromTMDB(endpoint) {
     if (error.name === "AbortError") {
       throw new Error(
         "The request timed out. Please check your internet connection and try again.",
+        {
+          cause: errorData,
+        },
       );
     }
 
     if (error instanceof TypeError) {
-      throw new Error("Unable to connect to TMDB. Please try again later.");
+      throw new Error("Unable to connect to TMDB. Please try again later.", {
+        cause: errorData,
+      });
     }
 
     throw error;

@@ -1,12 +1,13 @@
-import { createContext, useContext, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import useLocalStorage from "../hooks/useLocalStorage";
 
+import { LibraryContext } from "./library-context";
 /**
  * Global context for the user's movie library.
  * This context will eventually store the watchlist,
  * watched movies, personal ratings, and related actions.
  */
-const LibraryContext = createContext(null);
+
 const initialState = {
   watchlist: [],
   watched: [],
@@ -150,17 +151,4 @@ function LibraryProvider({ children }) {
   );
 }
 
-/* Custom hook for consuming the library context. */
-function useLibrary() {
-  //"value" defined in LibraryContext.Provider
-  const context = useContext(LibraryContext);
-
-  if (!context) {
-    throw new Error("useLibrary must be used within a LibraryProvider.");
-  }
-
-  //returning state(watched,watchlist) and dispatch actions list
-  return context;
-}
-
-export { LibraryProvider, useLibrary };
+export { LibraryProvider };

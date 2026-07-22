@@ -1,7 +1,7 @@
 import { Link, useLocation } from "react-router-dom";
 import { getPosterUrl } from "../utils/image";
 import { formatReleaseDate } from "../utils/movie";
-import { useLibrary } from "../context/LibraryContext";
+import useLibrary from "../hooks/useLibrary";
 
 function MovieCard({ movie }) {
   const location = useLocation();

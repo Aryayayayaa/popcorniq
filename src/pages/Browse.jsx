@@ -48,7 +48,28 @@ function Browse() {
    * The sorted list is never stored in state.
    */
   const sortedMovies = useMemo(() => {
-    const moviesCopy = [...movies];
+    let moviesCopy = [...movies];
+
+    if (isSearching) {
+      if (selectedGenre) {
+        moviesCopy = moviesCopy.filter((movie) =>
+          movie.genre_ids.includes(Number(selectedGenre)),
+        );
+      }
+
+      if (selectedYear) {
+        moviesCopy = moviesCopy.filter(
+          (movie) =>
+            movie.release_date && movie.release_date.startsWith(selectedYear),
+        );
+      }
+
+      if (selectedLanguage) {
+        moviesCopy = moviesCopy.filter(
+          (movie) => movie.original_language === selectedLanguage,
+        );
+      }
+    }
 
     const compareFunctions = {
       popularity: (a, b) => a.popularity - b.popularity,
@@ -70,7 +91,15 @@ function Browse() {
     }
 
     return moviesCopy;
-  }, [movies, sortBy, sortOrder]);
+  }, [
+    movies,
+    sortBy,
+    sortOrder,
+    isSearching,
+    selectedGenre,
+    selectedYear,
+    selectedLanguage,
+  ]);
 
   function updateSearchParams(updates) {
     const params = new URLSearchParams(searchParams);
@@ -172,7 +201,6 @@ function Browse() {
           <GenreFilter
             genres={genres}
             value={selectedGenre}
-            disabled={isSearching}
             onChange={(event) => {
               updateSearchParams({
                 genre: event.target.value,
@@ -183,7 +211,6 @@ function Browse() {
 
           <ReleaseYearFilter
             value={selectedYear}
-            disabled={isSearching}
             onChange={(event) => {
               updateSearchParams({
                 year: event.target.value,
@@ -194,7 +221,6 @@ function Browse() {
 
           <LanguageFilter
             value={selectedLanguage}
-            disabled={isSearching}
             onChange={(event) => {
               updateSearchParams({
                 language: event.target.value,
@@ -222,6 +248,13 @@ function Browse() {
           />
         </div>
       </div>
+
+      {isSearching && (
+        <p className="text-sm text-center text-slate-500">
+          Selecting a filter will clear the current search and switch to
+          browsing filtered movies.
+        </p>
+      )}
 
       {loading && (
         <div className="mt-8 rounded-lg bg-blue-100 p-4 text-center text-blue-700">

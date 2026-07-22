@@ -6,13 +6,15 @@
 ![TMDB API](https://img.shields.io/badge/API-TMDB-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
-A modern Movie Tracker web application built with **React** and powered by the **TMDB (The Movie Database) API**. Browse trending movies, search for your favourites, view detailed information, and maintain your personal Watchlist and Watched collections.
+A modern movie discovery and tracking web application built with **React** and powered by the **TMDB (The Movie Database) API**. Browse popular movies, search for your favourites, filter and sort results, explore detailed movie information, discover OTT availability in India, and maintain your personal Watchlist and Watched collections.
 
 ---
 
 ## 🚀 Live Demo
 
-🔗 **Live Website:https://popcorn-iq-tmdb.vercel.app/**
+🌐 Live Website: https://popcorn-iq-tmdb.vercel.app/
+
+📂 Source Code: https://github.com/Aryayayayaa/popcorniq
 
 ---
 
@@ -114,6 +116,17 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 
 ---
 
+### New Features Added:
+
+New Features added later which include:
+
+- Theme Mode
+- Filtering based on Genre, Release Year and Language
+
+![NewFeatures](./screenshots/NewFeatures.png)
+
+---
+
 ## ✨ Features
 
 ### 🔍 Browse & Search
@@ -121,9 +134,13 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 - Browse popular movies
 - Search movies by title
 - Debounced search
+- Pagination
 - URL-based search state
-- Pagination support
-- Sorting options
+- Genre filtering
+- Release year filtering
+- Original language filtering
+- Multiple filter combinations
+- Advanced sorting
 
 ### 🎞 Movie Details
 
@@ -138,6 +155,7 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 - OTT availability in India
 - Stream, Rent, Buy and Watch with Ads categories
 - Direct links to supported OTT platforms
+- User ratings
 
 ### 📚 Personal Library
 
@@ -164,38 +182,45 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 - Responsive UI
 - Clean card-based layout
 - Quick add/remove actions directly from Movie Cards
+- Dark mode
+- Theme persistence
+- Loading indicators
+- Error handling
+- Retry support
+- Quick Watchlist actions
+- Quick Watched actions
 
 ---
 
-## 🛠 Tech Stack
-
 ### Frontend
 
-- React
+- React 19
 - Vite
 - React Router DOM
-- Tailwind CSS
+- Tailwind CSS v4
 
 ### State Management
 
 - Context API
 - useReducer
 
-### Hooks
+### Data Fetching
 
-- useState
-- useEffect
-- useMemo
-- useCallback
+- Fetch API
 - Custom Hooks
 
-### API
+### Styling
 
-- TMDB API
+- Tailwind CSS
+- Responsive Design
 
 ### Storage
 
 - Local Storage
+
+### API
+
+- TMDB API
 
 ---
 
@@ -205,6 +230,9 @@ Maintain your personal movie library with separate Watchlist and Watched collect
 src
 ├── api
 ├── components
+│   ├── filters
+│   ├── movie
+│   └── ...
 ├── constants
 ├── context
 ├── hooks
@@ -232,6 +260,10 @@ src
 - URL Search Parameters
 - Local Storage
 - Reusable Components
+- useCallback
+- URL Search Params
+- Custom Reducers
+- Component Composition
 
 ---
 
@@ -240,7 +272,7 @@ src
 Clone the repository
 
 ```bash
-git clone <repository-url>
+git clone https://github.com/Aryayayayaa/popcorniq.git
 ```
 
 Navigate into the project
@@ -277,26 +309,53 @@ npm run dev
 
 ## 🌐 API Used
 
-This application uses the **TMDB (The Movie Database) API** to fetch:
+This project uses the TMDB API to fetch:
 
 - Popular Movies
 - Search Results
 - Movie Details
-- Cast & Crew Information
-- Watch Providers (Stream, Rent, Buy & Ads)
+- Cast & Crew
+- Watch Providers
+- Genres
+- Discover Movies
 
 ---
 
 ## 📈 Future Improvements
 
 - Infinite scrolling
-- Genre filtering
 - Trailer support
-- Dark mode
 - User authentication
 - Cloud sync
 - Recommendations
 - Support multiple countries for OTT availability
+
+---
+
+## ⭐ Key Highlights
+
+- Built with React 19 and Vite
+- Uses TMDB REST API
+- Global state managed with Context API + useReducer
+- Reusable custom hooks for API communication
+- Responsive design for desktop, tablet and mobile
+- Local Storage persistence
+- Dynamic routing with React Router
+- URL-based filtering and search
+
+---
+
+## 📚 What I Learned
+
+While building PopcornIQ, I gained practical experience with:
+
+- Designing reusable React components
+- Creating custom hooks for API integration
+- Managing global state using Context API and useReducer
+- Persisting application state with Local Storage
+- Building responsive layouts using Tailwind CSS
+- Working with REST APIs and asynchronous data fetching
+- Organizing a scalable React project structure
 
 ---
 

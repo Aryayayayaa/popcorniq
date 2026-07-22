@@ -9,8 +9,10 @@ import useGenres from "../hooks/useGenres";
 import GenreFilter from "../components/GenreFilter";
 import MovieGrid from "../components/MovieGrid";
 import Pagination from "../components/Pagination";
+import ReleaseYearFilter from "../components/ReleaseYearFilter";
 import SearchBar from "../components/SearchBar";
 import SortControl from "../components/SortControl";
+
 import { DEFAULT_SORT } from "../constants/movie";
 import { ROUTES } from "../constants/routes";
 
@@ -23,6 +25,7 @@ function Browse() {
   const sortBy = searchParams.get("sort") ?? DEFAULT_SORT;
   const sortOrder = searchParams.get("order") ?? "desc";
   const selectedGenre = searchParams.get("genre") ?? "";
+  const selectedYear = searchParams.get("year") ?? "";
 
   const debouncedQuery = useDebounce(searchQuery);
   const { genres } = useGenres();
@@ -30,7 +33,7 @@ function Browse() {
   const isSearching = debouncedQuery.trim() !== "";
 
   const { movies, loading, error, retry, currentPage, totalPages } =
-    useBrowseMovies(debouncedQuery, page, selectedGenre);
+    useBrowseMovies(debouncedQuery, page, selectedGenre, selectedYear);
 
   /**
    * Sorting is derived from the current movie list.
@@ -150,6 +153,7 @@ function Browse() {
               sort: sortBy,
               order: sortOrder,
               genre: value.trim() ? "" : selectedGenre,
+              year: value.trim() ? "" : selectedYear,
             });
           }}
         />
@@ -161,6 +165,17 @@ function Browse() {
           onChange={(event) => {
             updateSearchParams({
               genre: event.target.value,
+              page: 1,
+            });
+          }}
+        />
+
+        <ReleaseYearFilter
+          value={selectedYear}
+          disabled={isSearching}
+          onChange={(event) => {
+            updateSearchParams({
+              year: event.target.value,
               page: 1,
             });
           }}

@@ -53,6 +53,7 @@ function MovieCard({ movie }) {
         transition
         hover:-translate-y-1
         hover:shadow-xl
+        dark:bg-slate-800
       "
     >
       <Link to={`/movie/${movie.id}`} state={{ from: location }}>
@@ -77,17 +78,19 @@ function MovieCard({ movie }) {
               text-lg
               font-semibold
               hover:text-blue-600
+              text-slate-900
+              dark:text-slate-100
             "
           >
             {movie.title}
           </h2>
         </Link>
 
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           ⭐ {movie.vote_average.toFixed(1)}
         </p>
 
-        <p className="text-sm text-slate-600">
+        <p className="text-sm text-slate-600 dark:text-slate-300">
           📅 {formatReleaseDate(movie.release_date)}
         </p>
 

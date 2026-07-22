@@ -211,6 +211,8 @@ function MovieDetails() {
                   px-3
                   py-1
                   text-sm
+                  text-slate-900 
+                  dark:text-slate-900
                 "
               >
                 {genre.name}

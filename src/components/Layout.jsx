@@ -2,14 +2,34 @@ import { Link, Outlet } from "react-router-dom";
 
 import { ROUTES } from "../constants/routes";
 import { useLibrary } from "../context/LibraryContext";
+import ThemeToggle from "./ThemeToggle";
 
 function Layout() {
   const { state } = useLibrary();
   const totalLibraryCount = state.watchlist.length + state.watched.length;
 
   return (
-    <div className="min-h-screen bg-slate-100">
-      <header className="bg-slate-900 text-white shadow-md">
+    <div
+      className="
+          min-h-screen 
+          bg-slate-100 
+          text-slate-900 
+          transition-colors
+          duration-300
+          dark:bg-slate-900 
+          dark:text-slate-100
+        "
+    >
+      <header
+        className="
+          bg-slate-900
+          text-white
+          shadow-md
+          transition-colors
+          duration-300
+          dark:bg-slate-950
+        "
+      >
         <div
           className="
             mx-auto
@@ -82,6 +102,7 @@ function Layout() {
                 ? `My List (${totalLibraryCount})`
                 : "My List"}
             </Link>
+            <ThemeToggle />
           </nav>
         </div>
       </header>

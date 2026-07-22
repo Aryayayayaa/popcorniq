@@ -5,6 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import "./index.css";
 import App from "./App";
 import { LibraryProvider } from "./context/LibraryContext";
+import ThemeProvider from "./context/ThemeContext";
 
 //StrictMode: find mistakes while developing
 
@@ -18,9 +19,11 @@ import { LibraryProvider } from "./context/LibraryContext";
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
-      <LibraryProvider>
-        <App />
-      </LibraryProvider>
+      <ThemeProvider>
+        <LibraryProvider>
+          <App />
+        </LibraryProvider>
+      </ThemeProvider>
     </BrowserRouter>
   </StrictMode>,
 );

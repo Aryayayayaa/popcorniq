@@ -31,7 +31,18 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
         Previous
       </button>
 
-      <span className="rounded-lg bg-slate-200 px-4 py-2 font-semibold">
+      <span
+        className="
+          rounded-lg
+          bg-slate-200
+          px-4
+          py-2
+          font-semibold
+          text-slate-900
+          dark:bg-slate-700
+          dark:text-white
+  "
+      >
         {currentPage}
       </span>
 

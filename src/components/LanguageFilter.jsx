@@ -1,51 +1,30 @@
+import SelectFilter from "./SelectFilter";
+
 const LANGUAGE_OPTIONS = [
-  { code: "", label: "All Languages" },
-  { code: "en", label: "English" },
-  { code: "hi", label: "Hindi" },
-  { code: "ja", label: "Japanese" },
-  { code: "ko", label: "Korean" },
-  { code: "fr", label: "French" },
-  { code: "es", label: "Spanish" },
-  { code: "de", label: "German" },
-  { code: "it", label: "Italian" },
-  { code: "zh", label: "Chinese" },
-  { code: "ta", label: "Tamil" },
-  { code: "te", label: "Telugu" },
-  { code: "ml", label: "Malayalam" },
-  { code: "kn", label: "Kannada" },
+  { value: "", label: "All Languages" },
+  { value: "en", label: "English" },
+  { value: "hi", label: "Hindi" },
+  { value: "ja", label: "Japanese" },
+  { value: "ko", label: "Korean" },
+  { value: "fr", label: "French" },
+  { value: "es", label: "Spanish" },
+  { value: "de", label: "German" },
+  { value: "it", label: "Italian" },
+  { value: "zh", label: "Chinese" },
+  { value: "ta", label: "Tamil" },
+  { value: "te", label: "Telugu" },
+  { value: "ml", label: "Malayalam" },
+  { value: "kn", label: "Kannada" },
 ];
 
-function LanguageFilter({ value, onChange, disabled = false }) {
+function LanguageFilter({ value, onChange, disabled }) {
   return (
-    <div className="w-full">
-      <select
-        value={value}
-        onChange={onChange}
-        disabled={disabled}
-        className="
-          w-full
-          rounded-lg
-          border
-          border-slate-300
-          bg-white
-          px-4
-          py-3
-          focus:border-blue-500
-          focus:outline-none
-          dark:border-slate-700
-          dark:bg-slate-800
-          dark:text-white
-          disabled:cursor-not-allowed
-          disabled:opacity-60
-        "
-      >
-        {LANGUAGE_OPTIONS.map((language) => (
-          <option key={language.code} value={language.code}>
-            {language.label}
-          </option>
-        ))}
-      </select>
-    </div>
+    <SelectFilter
+      value={value}
+      onChange={onChange}
+      disabled={disabled}
+      options={LANGUAGE_OPTIONS}
+    />
   );
 }
 

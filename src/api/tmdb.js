@@ -137,3 +137,35 @@ export async function getMovieCredits(movieId) {
 export async function getMovieProviders(movieId) {
   return fetchFromTMDB(`/movie/${movieId}/watch/providers`);
 }
+
+// getting list of genres
+export async function getGenres() {
+  const data = await fetchFromTMDB("/genre/movie/list");
+  return data.genres;
+}
+
+export async function discoverMovies({
+  page = 1,
+  genre = "",
+  year = "",
+  language = "",
+}) {
+  const params = new URLSearchParams({
+    page: String(page),
+    sort_by: "popularity.desc",
+  });
+
+  if (genre) {
+    params.set("with_genres", genre);
+  }
+
+  if (year) {
+    params.set("primary_release_year", year);
+  }
+
+  if (language) {
+    params.set("with_original_language", language);
+  }
+
+  return fetchFromTMDB(`/discover/movie?${params}`);
+}

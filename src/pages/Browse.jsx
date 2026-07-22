@@ -4,7 +4,9 @@ import { Home } from "lucide-react";
 import { useMemo } from "react";
 import useDebounce from "../hooks/useDebounce";
 import useBrowseMovies from "../hooks/useBrowseMovies";
+import useGenres from "../hooks/useGenres";
 
+import GenreFilter from "../components/GenreFilter";
 import MovieGrid from "../components/MovieGrid";
 import Pagination from "../components/Pagination";
 import SearchBar from "../components/SearchBar";
@@ -20,13 +22,15 @@ function Browse() {
   const page = Number(searchParams.get("page") ?? "1");
   const sortBy = searchParams.get("sort") ?? DEFAULT_SORT;
   const sortOrder = searchParams.get("order") ?? "desc";
+  const selectedGenre = searchParams.get("genre") ?? "";
 
   const debouncedQuery = useDebounce(searchQuery);
+  const { genres } = useGenres();
 
   const isSearching = debouncedQuery.trim() !== "";
 
   const { movies, loading, error, retry, currentPage, totalPages } =
-    useBrowseMovies(debouncedQuery, page);
+    useBrowseMovies(debouncedQuery, page, selectedGenre);
 
   /**
    * Sorting is derived from the current movie list.
@@ -134,17 +138,30 @@ function Browse() {
             : "Discover what's trending today."}
         </p>
       </section>
+
       <div className="mt-8 flex flex-col gap-4 md:flex-row">
         <SearchBar
           value={searchQuery}
           onChange={(event) => {
             const value = event.target.value;
-
             updateSearchParams({
               query: value.trim() ? value : "",
               page: 1,
               sort: sortBy,
               order: sortOrder,
+              genre: value.trim() ? "" : selectedGenre,
+            });
+          }}
+        />
+
+        <GenreFilter
+          genres={genres}
+          selectedGenre={selectedGenre}
+          disabled={isSearching}
+          onChange={(event) => {
+            updateSearchParams({
+              genre: event.target.value,
+              page: 1,
             });
           }}
         />

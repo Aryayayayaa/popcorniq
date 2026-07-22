@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 
-import { getPopularMovies, searchMovies } from "../api/tmdb";
+import { discoverMovies, getPopularMovies, searchMovies } from "../api/tmdb";
 
-function useBrowseMovies(query, page) {
+function useBrowseMovies(query, page, genre = "", year = "", language = "") {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -18,6 +18,13 @@ function useBrowseMovies(query, page) {
 
       if (query.trim()) {
         data = await searchMovies(query, page);
+      } else if (genre || year || language) {
+        data = await discoverMovies({
+          page,
+          genre,
+          year,
+          language,
+        });
       } else {
         data = await getPopularMovies(page);
       }
@@ -40,7 +47,7 @@ function useBrowseMovies(query, page) {
 
   useEffect(() => {
     loadMovies();
-  }, [query, page]);
+  }, [query, page, genre, year, language]);
 
   return {
     movies,

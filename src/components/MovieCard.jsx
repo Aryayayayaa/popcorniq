@@ -69,11 +69,11 @@ function MovieCard({ movie }) {
         />
       </Link>
 
-      <div className="flex flex-1 flex-col space-y-3 p-4">
+      <div className="flex flex-1 flex-col space-y-2 px-4 py-3">
         <Link to={`/movie/${movie.id}`} state={{ from: location }}>
           <h2
             className="
-              min-h-[3.5rem]
+              min-h-[2rem]
               line-clamp-2
               text-lg
               font-semibold

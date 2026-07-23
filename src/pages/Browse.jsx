@@ -41,6 +41,8 @@ function Browse() {
       selectedGenre,
       selectedYear,
       selectedLanguage,
+      sortBy,
+      sortOrder,
     );
 
   /**
@@ -310,6 +312,12 @@ function Browse() {
         onNext={() => {
           updateSearchParams({
             page: page + 1,
+            order: sortOrder,
+          });
+        }}
+        onPageChange={(newPage) => {
+          updateSearchParams({
+            page: newPage,
             order: sortOrder,
           });
         }}

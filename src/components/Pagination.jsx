@@ -1,6 +1,19 @@
-// Browse page pagination controls.
+import { useEffect, useState } from "react";
 
-function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
+// Browse page pagination controls.
+function Pagination({
+  currentPage,
+  totalPages,
+  onPrevious,
+  onNext,
+  onPageChange,
+}) {
+  const [pageInput, setPageInput] = useState(currentPage);
+
+  useEffect(() => {
+    setPageInput(currentPage);
+  }, [currentPage]);
+
   return (
     <div
       className="
@@ -20,9 +33,9 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
           rounded-lg
           bg-slate-800
           w-full
+          sm:w-24
           px-5
           py-2
-          sm:w-auto
           text-white
           disabled:cursor-not-allowed
           disabled:opacity-40
@@ -31,20 +44,38 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
         Previous
       </button>
 
-      <span
+      <input
+        type="number"
+        value={pageInput}
         className="
-          rounded-lg
-          bg-slate-200
-          px-4
-          py-2
-          font-semibold
-          text-slate-900
-          dark:bg-slate-700
-          dark:text-white
-  "
-      >
-        {currentPage}
-      </span>
+            w-16
+            rounded-lg
+            bg-slate-200
+            px-2
+            py-2
+            text-center
+            font-semibold
+            text-slate-900
+            dark:bg-slate-700
+            dark:text-white
+          "
+        onChange={(event) => {
+          setPageInput(event.target.value);
+        }}
+        onKeyDown={(event) => {
+          if (event.key === "Enter") {
+            let page = Number(pageInput);
+            if (Number.isNaN(page)) {
+              return;
+            }
+            const maxPage = Math.min(totalPages, 500);
+            page = Math.max(1, Math.min(page, maxPage));
+
+            setPageInput(page);
+            onPageChange(page);
+          }
+        }}
+      />
 
       <button
         onClick={onNext}
@@ -53,9 +84,9 @@ function Pagination({ currentPage, totalPages, onPrevious, onNext }) {
           rounded-lg
           bg-slate-800
           w-full
+          sm:w-24
           px-5
           py-2
-          sm:w-auto
           text-white
           disabled:cursor-not-allowed
           disabled:opacity-40

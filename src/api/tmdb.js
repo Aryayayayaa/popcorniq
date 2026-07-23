@@ -42,21 +42,26 @@ async function fetchFromTMDB(endpoint) {
     const contentType = response.headers.get("content-type");
 
     if (!response.ok) {
+      if (response.status === 400) {
+        throw new Error("The requested page doesn't exist.");
+      }
+
       // TMDB returned a JSON error response.
       if (contentType?.includes("application/json")) {
-        const errorData = await response.json();
+        const error = await response.json();
 
         throw new Error(
-          errorData.status_message || "TMDB returned an unexpected error.",
+          error.status_message ||
+            "An unexpected error occured. Please try again in a few minutes.",
           {
-            cause: errorData,
+            cause: error,
           },
         );
       }
 
       // CloudFront / HTML error page.
       throw new Error(
-        `TMDB server error (${response.status}). Please try again in a few moments.`,
+        "We're having trouble loading movies right now. Please try again in a few moments.",
         {
           cause: response,
         },
@@ -71,15 +76,18 @@ async function fetchFromTMDB(endpoint) {
       throw new Error(
         "The request timed out. Please check your internet connection and try again.",
         {
-          cause: errorData,
+          cause: error,
         },
       );
     }
 
     if (error instanceof TypeError) {
-      throw new Error("Unable to connect to TMDB. Please try again later.", {
-        cause: errorData,
-      });
+      throw new Error(
+        "Unable to connect to the internet. Please check your connection and try again.",
+        {
+          cause: error,
+        },
+      );
     }
 
     throw error;
@@ -160,10 +168,18 @@ export async function discoverMovies({
   genre = "",
   year = "",
   language = "",
+  sortBy = "popularity",
+  sortOrder = "desc",
 }) {
+  const sortMap = {
+    popularity: "popularity",
+    rating: "vote_average",
+    "release-date": "primary_release_date",
+    title: "original_title",
+  };
   const params = new URLSearchParams({
     page: String(page),
-    sort_by: "popularity.desc",
+    sort_by: `${sortMap[sortBy]}.${sortOrder}`,
   });
 
   if (genre) {

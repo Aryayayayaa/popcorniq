@@ -2,7 +2,15 @@ import { useCallback, useEffect, useState } from "react";
 
 import { discoverMovies, getPopularMovies, searchMovies } from "../api/tmdb";
 
-function useBrowseMovies(query, page, genre = "", year = "", language = "") {
+function useBrowseMovies(
+  query,
+  page,
+  genre = "",
+  year = "",
+  language = "",
+  sortBy,
+  sortOrder,
+) {
   const [movies, setMovies] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
@@ -24,6 +32,8 @@ function useBrowseMovies(query, page, genre = "", year = "", language = "") {
           genre,
           year,
           language,
+          sortBy,
+          sortOrder,
         });
       } else {
         data = await getPopularMovies(page);
@@ -33,19 +43,13 @@ function useBrowseMovies(query, page, genre = "", year = "", language = "") {
       setCurrentPage(data.page ?? 1);
       setTotalPages(data.total_pages ?? 1);
     } catch (err) {
-      console.error(err);
-
-      if (err instanceof TypeError) {
-        setError("Unable to connect to TMDB. Please try again.");
-      } else {
-        setError(err.message);
-      }
-
+      //console.error(err);
+      setError(err.message);
       setMovies([]);
     } finally {
       setLoading(false);
     }
-  }, [query, page, genre, year, language]);
+  }, [query, page, genre, year, language, sortBy, sortOrder]);
 
   useEffect(() => {
     loadMovies();

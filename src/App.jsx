@@ -4,6 +4,7 @@ import Layout from "./components/Layout";
 import Browse from "./pages/Browse";
 import MovieDetails from "./pages/MovieDetails";
 import MyList from "./pages/MyList";
+import NotFound from "./pages/NotFound";
 
 //Routes: dict of the URLs -> check all roots and renders which matches the "path"
 
@@ -19,6 +20,8 @@ function App() {
 
         <Route path="movie/:id" element={<MovieDetails />} />
         <Route path="my-list" element={<MyList />} />
+
+        <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>
   );

@@ -1,5 +1,6 @@
 import { Link, useSearchParams } from "react-router-dom";
 import { Home } from "lucide-react";
+import { Oval } from "react-loader-spinner";
 
 import { useMemo } from "react";
 import useDebounce from "../hooks/useDebounce";
@@ -252,8 +253,19 @@ function Browse() {
       </div>
 
       {loading && (
-        <div className="mt-8 rounded-lg bg-blue-100 p-4 text-center text-blue-700">
-          Loading movies...
+        <div className="mt-12 flex flex-col items-center justify-center gap-4">
+          <Oval
+            height={50}
+            width={50}
+            color="#2563eb"
+            secondaryColor="#93c5fd"
+            strokeWidth={4}
+            strokeWidthSecondary={4}
+          />
+
+          <p className="text-slate-600 dark:text-slate-300">
+            Loading movies...
+          </p>
         </div>
       )}
       {error && (

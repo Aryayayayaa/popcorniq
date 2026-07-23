@@ -249,13 +249,6 @@ function Browse() {
         </div>
       </div>
 
-      {isSearching && (
-        <p className="text-sm text-center text-slate-500">
-          Selecting a filter will clear the current search and switch to
-          browsing filtered movies.
-        </p>
-      )}
-
       {loading && (
         <div className="mt-8 rounded-lg bg-blue-100 p-4 text-center text-blue-700">
           Loading movies...
